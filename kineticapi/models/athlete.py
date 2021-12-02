@@ -15,3 +15,5 @@ class Athlete(models.Model):
     weight = models.IntegerField()
     height = models.IntegerField()
     is_athlete = models.BooleanField(default=True)
+
+    #TODO Custom properties for total distances based on sports participated in.
