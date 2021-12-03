@@ -1,0 +1,11 @@
+[
+    {
+        "model": "kineticapi.organizer",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "organization": "Six Gap",
+            "is_athlete": false
+        }
+    }
+]

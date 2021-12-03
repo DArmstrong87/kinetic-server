@@ -1,0 +1,10 @@
+[
+    {
+        "model": "kineticapi.athleteevent",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "athlete": 1
+        }
+    }
+]

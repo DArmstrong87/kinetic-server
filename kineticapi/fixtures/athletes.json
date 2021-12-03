@@ -1,0 +1,19 @@
+[
+    {
+        "model": "kineticapi.athlete",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "I enjoy cycling in the mountains.",
+            "dob": "1987-07-07",
+            "sex": "M",
+            "VO2_max": 45,
+            "rhr": 45,
+            "fluid_loss": 0.9,
+            "sodium_loss": 900,
+            "weight": 185,
+            "height": 74,
+            "is_athlete": true
+        }
+    }
+]

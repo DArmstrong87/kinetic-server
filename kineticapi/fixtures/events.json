@@ -1,0 +1,17 @@
+[
+    {
+        "model": "kineticapi.event",
+        "pk": 1,
+        "fields": {
+            "organizer": 1,
+            "name": "Six Gap Century",
+            "description": "The Six Gap Century boasts many of the same roads and mountain climbs as the elite Tour de Georgia. The ultra­-challenging route takes you up and down six of the steepest climbs in the North Georgia Mountains. Elevations on the six gaps in this ride range from 1,400 feet to 3,460 feet. The toughest climb, Hogpen Gap, will challenge even the strongest rides, averaging a 7% grade for seven miles, with sections as steep as 15%. The Six Gap Century includes nine full rest stops, all supplied with a great selection of food and drink. Exhilarated Six Gappers will be greeted with a huge spaghetti dinner after the ride.",
+            "date": "2022-09-25 07:00:00",
+            "city": "Dahlonega",
+            "state": "GA",
+            "max_participants": 2500,
+            "course_url": "https://ridewithgps.com/routes/35408394",
+            "event_logo": "https://6gap.com/wp-content/uploads/2021/03/6Gap-Logo-secondary-300x300.png"
+        }
+    }
+]

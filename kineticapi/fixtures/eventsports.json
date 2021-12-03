@@ -1,0 +1,12 @@
+[
+    {
+        "model": "kineticapi.eventsport",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "sport": 2,
+            "distance": 104,
+            "elev_gain": 11000
+        }
+    }
+]

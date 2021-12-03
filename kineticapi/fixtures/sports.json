@@ -1,0 +1,23 @@
+[
+    {
+        "model": "kineticapi.sport",
+        "pk": 1,
+        "fields": {
+            "name": "Running"
+        }
+    },
+    {
+        "model": "kineticapi.sport",
+        "pk": 2,
+        "fields": {
+            "name": "Cycling"
+        }
+    },
+    {
+        "model": "kineticapi.sport",
+        "pk": 3,
+        "fields": {
+            "name": "Swimming"
+        }
+    }
+]
