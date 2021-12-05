@@ -3,6 +3,7 @@ from rest_framework import routers
 from django.conf.urls import include
 from django.urls import path
 from kineticapi.views import register_user, login_user, EventView
+from kineticapi.views.athlete_event import AthleteEventView
 from kineticapi.views.event_sport import EventSportView
 from kineticapi.views.sport import SportView
 """kinetic URL Configuration
@@ -13,6 +14,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'events', EventView, 'event')
 router.register(r'sports', SportView, 'sport')
 router.register(r'eventsports', EventSportView, 'eventsport')
+router.register(r'athleteevents', AthleteEventView, 'athleteevent')
 
 urlpatterns = [
     path('', include(router.urls)),
