@@ -51,6 +51,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M",
+
 }
 
 CORS_ORIGIN_WHITELIST = (

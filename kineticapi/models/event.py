@@ -1,4 +1,6 @@
 from django.db import models
+import json
+from kineticapi.models.event_sport import EventSport
 
 
 class Event(models.Model):
@@ -12,5 +14,22 @@ class Event(models.Model):
     max_participants = models.IntegerField()
     course_url = models.URLField()
     event_logo = models.URLField()
+    event_sport = models.ForeignKey("EventSport", on_delete=models.CASCADE, related_name="event_sports")
     
-    #TODO Add a custom property for total distance.
+    @property
+    def total_distance(self):
+        """Add total distance"""
+        event_sports = EventSport.objects.filter(event=self)
+        total_distance = 0
+        for es in event_sports:
+            total_distance += es.distance
+        return total_distance
+    
+    @property
+    def total_elev_gain(self):
+        """Add total elevation gain"""
+        event_sports = EventSport.objects.filter(event=self)
+        total_elev = 0
+        for es in event_sports:
+            total_elev += es.elev_gain
+        return total_elev

@@ -8,5 +8,15 @@
             "distance": 104,
             "elev_gain": 11000
         }
+    },
+    {
+        "model": "kineticapi.eventsport",
+        "pk": 2,
+        "fields": {
+            "event": 1,
+            "sport": 2,
+            "distance": 104,
+            "elev_gain": 11000
+        }
     }
 ]
