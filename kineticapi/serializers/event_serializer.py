@@ -1,19 +1,17 @@
 from rest_framework import serializers
-from kineticapi.models import Event, EventSport, Sport
+from kineticapi.models import Event, EventSport
 from kineticapi.serializers.sport_serializer import SportSerializer
 
 
-
 class EventSportSerializer (serializers.ModelSerializer):
-
+    sport=SportSerializer()
+    
     class Meta:
         model = EventSport
-        fields = ('id', 'sport', 'distance', 'elev_gain')
-        depth = 1
-
+        fields = ('event', 'sport', 'distance', 'elev_gain')
 
 class EventSerializer (serializers.ModelSerializer):
-    # event_sports = EventSportSerializer()
+    event_sport = EventSportSerializer()
 
     class Meta:
         model = Event
@@ -25,6 +23,9 @@ class EventSerializer (serializers.ModelSerializer):
                   'state',
                   'max_participants',
                   'course_url',
-                  'event_logo'
+                  'event_logo',
+                  'event_sport',
+                  'total_distance',
+                  'total_elev_gain'
                   )
         depth=1
