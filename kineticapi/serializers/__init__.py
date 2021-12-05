@@ -1,2 +1,3 @@
 from .event_serializer import EventSerializer
 from .sport_serializer import SportSerializer
+from .athlete_serializer import AthleteSerializer
