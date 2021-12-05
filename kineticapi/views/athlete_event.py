@@ -1,8 +1,7 @@
 """View module for handling requests about game types"""
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from kineticapi.models import AthleteEvent
-from kineticapi.models.athlete import Athlete
+from kineticapi.models import AthleteEvent, Athlete, Event
 from kineticapi.serializers.athlete_event_serializer import AthleteEventSerializer
 
 
@@ -22,3 +21,12 @@ class AthleteEventView(ViewSet):
             events, many=True, context={'request': request})
         return Response(serializer.data)
 
+    def retrieve(self, request, pk):
+        """Get single athlete event"""
+        athlete = Athlete.objects.get(user=request.auth.user)
+        event=Event.objects.get(pk=pk)
+        athlete_event = AthleteEvent.objects.get(athlete=athlete, event=event)
+        
+        serializer = AthleteEventSerializer(
+            athlete_event, context={'request': request})
+        return Response(serializer.data)
