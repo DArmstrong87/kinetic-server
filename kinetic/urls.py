@@ -5,6 +5,7 @@ from django.urls import path
 from kineticapi.views import register_user, login_user, EventView
 from kineticapi.views.athlete_event import AthleteEventView
 from kineticapi.views.event_sport import EventSportView
+from kineticapi.views.profile import AthleteView
 from kineticapi.views.sport import SportView
 """kinetic URL Configuration
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,6 +16,7 @@ router.register(r'events', EventView, 'event')
 router.register(r'sports', SportView, 'sport')
 router.register(r'eventsports', EventSportView, 'eventsport')
 router.register(r'athleteevents', AthleteEventView, 'athleteevent')
+router.register(r'athletes', AthleteView, 'athlete')
 
 urlpatterns = [
     path('', include(router.urls)),

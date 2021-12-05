@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime, date
 
 
 class Athlete(models.Model):
@@ -16,4 +17,13 @@ class Athlete(models.Model):
     height = models.IntegerField()
     is_athlete = models.BooleanField(default=True)
 
-    #TODO Custom properties for total distances based on sports participated in.
+    @property
+    def age(self):
+        """Find the athlete's age"""
+        d = date.today()
+        age = (d.year - self.dob.year) - \
+            int((d.month, d.day) < (self.dob.month, self.dob.day))
+
+        return age
+
+    # TODO Custom properties for total distances based on sports participated in.

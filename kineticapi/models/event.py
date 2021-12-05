@@ -1,9 +1,7 @@
 from django.db import models
-import json
 from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 from datetime import datetime
-import time
 
 class Event(models.Model):
 
