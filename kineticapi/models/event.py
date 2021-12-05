@@ -1,5 +1,6 @@
 from django.db import models
 import json
+from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 
 
@@ -33,3 +34,11 @@ class Event(models.Model):
         for es in event_sports:
             total_elev += es.elev_gain
         return total_elev
+    
+    @property
+    def spots_remaining(self):
+        """Calculate spots remaining for event registration"""
+    
+        remaining = self.max_participants
+        remaining -= AthleteEvent.objects.filter(event=self).count()
+        return remaining
