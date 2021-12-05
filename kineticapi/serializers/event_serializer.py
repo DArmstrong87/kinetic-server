@@ -27,6 +27,7 @@ class EventSerializer (serializers.ModelSerializer):
                   'event_sport',
                   'total_distance',
                   'total_elev_gain',
-                  'spots_remaining'
+                  'spots_remaining',
+                  'days_until'
                   )
         depth=1

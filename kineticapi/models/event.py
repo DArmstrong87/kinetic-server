@@ -2,7 +2,8 @@ from django.db import models
 import json
 from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
-
+from datetime import datetime
+import time
 
 class Event(models.Model):
 
@@ -42,3 +43,11 @@ class Event(models.Model):
         remaining = self.max_participants
         remaining -= AthleteEvent.objects.filter(event=self).count()
         return remaining
+    
+    @property
+    def days_until(self):
+        """Calculate days until the race"""
+        today = datetime.now().timestamp()
+        racetime = self.date.timestamp()
+        daysUntil = round((racetime - today)/(3600*24))
+        return daysUntil
