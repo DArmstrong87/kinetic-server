@@ -22,3 +22,14 @@ class AthleteView(ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as ex:
             return HttpResponseServerError(ex)
+
+    def partial_update(self, request, pk=None):
+        athlete = Athlete.objects.get(user=request.auth.user)
+        if request.data['VO2max']:
+            athlete.VO2_max = request.data['VO2max']
+        elif request.data['fluidLoss']:
+            athlete.fluid_loss = request.data['fluidLoss']
+        elif request.data['sodiumLoss']:
+            athlete.sodium_loss = request.data['sodiumLoss']
+        athlete.save()
+        return Response({"message": f"Property updated!"}, status=status.HTTP_204_NO_CONTENT)
