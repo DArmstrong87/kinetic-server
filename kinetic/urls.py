@@ -4,6 +4,7 @@ from django.conf.urls import include
 from django.urls import path
 from kineticapi.views import register_user, login_user, EventView
 from kineticapi.views.athlete_event import AthleteEventView
+from kineticapi.views.event import OrganizerEventView
 from kineticapi.views.event_sport import EventSportView
 from kineticapi.views.profile import AthleteView
 from kineticapi.views.sport import SportView
@@ -13,6 +14,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'events', EventView, 'event')
+router.register(r'organizerevents', OrganizerEventView, 'organizerevent')
 router.register(r'sports', SportView, 'sport')
 router.register(r'eventsports', EventSportView, 'eventsport')
 router.register(r'athleteevents', AthleteEventView, 'athleteevent')
