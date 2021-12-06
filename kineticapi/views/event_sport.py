@@ -1,23 +1,31 @@
 """View module for handling requests about game types"""
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from kineticapi.models import EventSport
+from kineticapi.models import Event, Sport, EventSport
+from kineticapi.serializers import EventSerializer
+from rest_framework import status
+
 from kineticapi.serializers.event_serializer import EventSportSerializer
 
 
 class EventSportView(ViewSet):
-    """Level up game types"""
+    """Kinetic EventSports"""
 
-    def list(self, request):
-        """Handle GET requests to get all game types
-        Returns:
-        Response -- JSON serialized list of game types
-        """
-        event_sport = EventSport.objects.all()
-        event_id = request.query_params.get('event', None)
-        if event_id:
-            event_sport = event_sport.filter(event_id=event_id)
+    def create(self, request):
+        """Handles CREATE for a new event"""
 
-        serializer = EventSportSerializer(
-            event_sport, many=True, context={'request': request})
-        return Response(serializer.data)
+        try:
+            event=Event.objects.get(pk=request.data['eventId'])
+            sport=Sport.objects.get(pk=request.data['sportId'])
+            event_sport = EventSport.objects.create(
+                event=event,
+                sport=sport,
+                distance=request.data['distance'],
+                elev_gain=request.data['elevGain']
+            )
+            
+            serializer = EventSportSerializer(
+                event_sport, many=False, context={"request": request})
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

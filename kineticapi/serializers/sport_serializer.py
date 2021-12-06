@@ -6,4 +6,4 @@ class SportSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Sport
-        fields = ('name',)
+        fields = ('id', 'name')

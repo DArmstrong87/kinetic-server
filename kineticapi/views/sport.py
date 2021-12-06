@@ -9,9 +9,9 @@ class SportView(ViewSet):
     """Level up game types"""
 
     def list(self, request):
-        """Handle GET requests to get all game types
+        """Handle GET requests to get all sports
         Returns:
-        Response -- JSON serialized list of game types
+        Response -- JSON serialized list of sports
         """
         sports = Sport.objects.all()
 
