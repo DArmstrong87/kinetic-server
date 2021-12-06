@@ -4,13 +4,13 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from kineticapi.models import Athlete, Organizer
+from kineticapi.models import Athlete, Organizer, athlete, organizer
 from rest_framework import status
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
-
     '''Handles the authentication of an athlete or organizer
     '''
     username = request.data['username']
@@ -20,34 +20,45 @@ def login_user(request):
     authenticated_user = authenticate(username=username, password=password)
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
+
+        organizer=None
+        try:
+            organizer = Organizer.objects.get(user=authenticated_user)
+        except:
+            pass
+
         token = Token.objects.get(user=authenticated_user)
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            'is_athlete': True
         }
+        if organizer is not None:
+            data['is_athlete'] = False
+
         return Response(data)
     else:
         # Bad login details were provided. So we can't log the user in.
         data = {'valid': False}
         return Response(data)
 
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
-
     '''Handles the creation of a new user for authentication
     '''
     new_user = User.objects.create_user(
-    username=request.data['username'],
-    email=request.data['email'],
-    password=request.data['password'],
-    first_name=request.data['firstName'],
-    last_name=request.data['lastName']
+        username=request.data['username'],
+        email=request.data['email'],
+        password=request.data['password'],
+        first_name=request.data['firstName'],
+        last_name=request.data['lastName']
     )
 
     # Check if new user is an athlete or organizer and create that instance.
     if request.data['isAthlete']:
-        athlete=Athlete.objects.create(
+        athlete = Athlete.objects.create(
             user=new_user,
             bio=request.data['bio'],
             dob=request.data['dob'],
@@ -67,7 +78,7 @@ def register_user(request):
         data = {'token': token.key}
         return Response(data, status=status.HTTP_201_CREATED)
     else:
-        organizer=Organizer.objects.create(
+        organizer = Organizer.objects.create(
             user=new_user,
             organization=request.data['organization'],
             is_athlete=request.data['isAthlete']
@@ -78,4 +89,3 @@ def register_user(request):
         # Return the token to the client
         data = {'token': token.key}
         return Response(data, status=status.HTTP_201_CREATED)
-        
