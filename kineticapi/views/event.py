@@ -18,7 +18,7 @@ class EventView(ViewSet):
         Response -- JSON serialized list of events
         """
 
-        events = Event.objects.all().order_by('date')
+        events = Event.objects.all().order_by('-date')
 
         serializer = EventSerializer(
             events, many=True, context={'request': request})
