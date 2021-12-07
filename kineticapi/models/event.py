@@ -3,6 +3,7 @@ from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 from datetime import datetime
 
+
 class Event(models.Model):
 
     organizer = models.ForeignKey("Organizer", on_delete=models.CASCADE)
@@ -14,20 +15,19 @@ class Event(models.Model):
     max_participants = models.IntegerField()
     course_url = models.URLField()
     event_logo = models.URLField()
-    
+
     @property
     def total_distance(self):
         """Add total distance"""
         total_distance = 0
-        try: 
+        try:
             event_sports = EventSport.objects.filter(event=self)
             for es in event_sports:
                 total_distance += es.distance
-                return total_distance
+            return total_distance
         except:
             return total_distance
-            
-    
+
     @property
     def total_elev_gain(self):
         """Add total elevation gain"""
@@ -39,7 +39,7 @@ class Event(models.Model):
             return total_elev
         except:
             return 0
-    
+
     @property
     def spots_remaining(self):
         """Calculate spots remaining for event registration"""
@@ -49,7 +49,7 @@ class Event(models.Model):
             return remaining
         except:
             return remaining
-    
+
     @property
     def days_until(self):
         """Calculate days until the race"""
