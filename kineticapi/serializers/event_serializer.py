@@ -11,7 +11,7 @@ class EventSportSerializer (serializers.ModelSerializer):
         fields = ('event', 'sport', 'distance', 'elev_gain')
 
 class EventSerializer (serializers.ModelSerializer):
-    event_sport = EventSportSerializer()
+    event_sports = EventSportSerializer(many=True)
 
     class Meta:
         model = Event
@@ -24,7 +24,7 @@ class EventSerializer (serializers.ModelSerializer):
                   'max_participants',
                   'course_url',
                   'event_logo',
-                  'event_sport',
+                  'event_sports',
                   'total_distance',
                   'total_elev_gain',
                   'spots_remaining',

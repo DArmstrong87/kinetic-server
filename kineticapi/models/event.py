@@ -3,6 +3,7 @@ from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 from datetime import datetime
 
+
 class Event(models.Model):
 
     organizer = models.ForeignKey("Organizer", on_delete=models.CASCADE)
@@ -14,34 +15,41 @@ class Event(models.Model):
     max_participants = models.IntegerField()
     course_url = models.URLField()
     event_logo = models.URLField()
-    event_sport = models.ForeignKey("EventSport", on_delete=models.CASCADE, related_name="event_sports")
-    
+
     @property
     def total_distance(self):
         """Add total distance"""
-        event_sports = EventSport.objects.filter(event=self)
         total_distance = 0
-        for es in event_sports:
-            total_distance += es.distance
-        return total_distance
-    
+        try:
+            event_sports = EventSport.objects.filter(event=self)
+            for es in event_sports:
+                total_distance += es.distance
+            return total_distance
+        except:
+            return total_distance
+
     @property
     def total_elev_gain(self):
         """Add total elevation gain"""
-        event_sports = EventSport.objects.filter(event=self)
-        total_elev = 0
-        for es in event_sports:
-            total_elev += es.elev_gain
-        return total_elev
-    
+        try:
+            event_sports = EventSport.objects.filter(event=self)
+            total_elev = 0
+            for es in event_sports:
+                total_elev += es.elev_gain
+            return total_elev
+        except:
+            return 0
+
     @property
     def spots_remaining(self):
         """Calculate spots remaining for event registration"""
-    
         remaining = self.max_participants
-        remaining -= AthleteEvent.objects.filter(event=self).count()
-        return remaining
-    
+        try:
+            remaining -= AthleteEvent.objects.filter(event=self).count()
+            return remaining
+        except:
+            return remaining
+
     @property
     def days_until(self):
         """Calculate days until the race"""

@@ -16,9 +16,9 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'events', EventView, 'event')
 router.register(r'organizerevents', OrganizerEventView, 'organizerevent')
 router.register(r'sports', SportView, 'sport')
-router.register(r'eventsports', EventSportView, 'eventsport')
 router.register(r'athleteevents', AthleteEventView, 'athleteevent')
 router.register(r'athletes', AthleteView, 'athlete')
+router.register(r'eventsports', EventSportView, 'eventsport')
 
 urlpatterns = [
     path('', include(router.urls)),
