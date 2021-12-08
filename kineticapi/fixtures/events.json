@@ -13,5 +13,20 @@
             "course_url": "https://ridewithgps.com/routes/35408394",
             "event_logo": "https://6gap.com/wp-content/uploads/2021/03/6Gap-Logo-secondary-300x300.png"
         }
+    },
+    {
+        "model": "kineticapi.event",
+        "pk": 2,
+        "fields": {
+            "organizer": 2,
+            "name": "Iron Man 70.3",
+            "description": "If you're looking for a race that will welcome you with open arms, look no further than IRONMAN 70.3 Florida. It’s here that you’ll find your rhythm in Lake Eva, traverse through miles of scenic orange groves and feel the adrenaline as you cross the finish line on the Great Lawn. And this is just the beginning.​ Located just minutes from the world-famous theme parks of Central Florida, Haines City provides plenty of activities to enjoy all weekend long. This end of year event will serve as the finale for 2021 so don't miss out on this opportunity to take part in one last big celebration before we say goodbye to 2021!",
+            "date": "2022-01-09 07:00:00",
+            "city": "Haines City",
+            "state": "FL",
+            "max_participants": 2500,
+            "course_url": "https://www.ironman.com/im703-florida-course",
+            "event_logo": "data:image/png;base64,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"
+        }
     }
 ]
