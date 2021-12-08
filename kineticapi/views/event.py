@@ -1,12 +1,13 @@
 """View module for handling requests about game types"""
+from django.db.models.aggregates import Sum
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from kineticapi import serializers
-from kineticapi.models import Event, Athlete, AthleteEvent, Organizer, event_sport, organizer
+from kineticapi.models import Event, Athlete, AthleteEvent, Organizer, EventSport
 from kineticapi.serializers import EventSerializer
 from rest_framework.decorators import action
 from rest_framework import status
+from django.db.models import Q
 
 
 class EventView(ViewSet):
@@ -18,7 +19,31 @@ class EventView(ViewSet):
         Response -- JSON serialized list of events
         """
 
-        events = Event.objects.all().order_by('-date')
+        events = Event.objects.all().order_by('date')
+
+        search_term = self.request.query_params.get('q', None)
+        distance = self.request.query_params.get('dist', None)
+        state = self.request.query_params.get('state', None)
+        month = self.request.query_params.get('month', None)
+        sport = self.request.query_params.get('sport', None)
+
+        if search_term is not None:
+            events = Event.objects.filter(
+                Q(name__contains=search_term) |
+                Q(description__contains=search_term) |
+                Q(city__contains=search_term) |
+                Q(state__contains=search_term)
+            )
+
+        if distance is not None:
+            events = Event.objects.annotate(
+                tdist=Sum("event_sports__distance")).filter(tdist__gte=distance)
+            
+        if state is not None:
+            events = Event.objects.filter(state=state)
+
+        if month is not None:
+            events = Event.objects.filter(date__month=month)
 
         serializer = EventSerializer(
             events, many=True, context={'request': request})
@@ -53,7 +78,7 @@ class EventView(ViewSet):
                 event_logo=request.data['eventLogo'],
                 organizer=organizer
             )
-            
+
             serializer = EventSerializer(
                 event, many=False, context={"request": request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
