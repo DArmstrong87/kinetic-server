@@ -25,7 +25,6 @@ class EventView(ViewSet):
         distance = self.request.query_params.get('dist', None)
         state = self.request.query_params.get('state', None)
         month = self.request.query_params.get('month', None)
-        sport = self.request.query_params.get('sport', None)
 
         if search_term is not None:
             events = Event.objects.filter(
@@ -38,7 +37,7 @@ class EventView(ViewSet):
         if distance is not None:
             events = Event.objects.annotate(
                 tdist=Sum("event_sports__distance")).filter(tdist__gte=distance)
-            
+
         if state is not None:
             events = Event.objects.filter(state=state)
 
@@ -84,6 +83,16 @@ class EventView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def destroy(self, request, pk=None):
+        try:
+            event = Event.objects.get(pk=pk)
+            event.delete()
+
+            return Response({"event deleted"}, status=status.HTTP_204_NO_CONTENT)
+
+        except Event.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
     @action(methods=['post', 'delete'], detail=True, url_path="signup")
     def signup(self, request, pk):
