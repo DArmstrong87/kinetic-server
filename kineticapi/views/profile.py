@@ -29,21 +29,22 @@ class AthleteView(ViewSet):
 
         try:
             athlete = Athlete.objects.get(pk=request.data['id'])
-            athlete.bio = request.data["bio"],
-            athlete.VO2_max = request.data["VO2max"],
-            athlete.rhr = request.data["rhr"],
-            athlete.fluid_loss = request.data["fluidLoss"],
-            athlete.sodium_loss = request.data["sodiumLoss"],
-            athlete.weight = request.data["weight"],
-            athlete.dob = athlete.dob,
-            athlete.height = athlete.height,
+            athlete.bio = request.data["bio"]
+            athlete.VO2_max = request.data["VO2max"]
+            athlete.rhr = request.data["rhr"]
+            athlete.fluid_loss = request.data["fluidLoss"]
+            athlete.sodium_loss = request.data["sodiumLoss"]
+            athlete.weight = request.data["weight"]
+            athlete.dob = athlete.dob
+            athlete.sex = athlete.sex
+            athlete.height = athlete.height
             athlete.is_athlete = athlete.is_athlete
             athlete.save()
 
-            # user = User.objects.get(user=athlete.user)
-            # user.first_name=request.data['firstName']
-            # user.last_name=request.data['lastName']
-            # user.save()
+            user = User.objects.get(pk=request.auth.user.id)
+            user.first_name=request.data['firstName']
+            user.last_name=request.data['lastName']
+            user.save()
             return Response({"message": "User updated!"}, status=status.HTTP_204_NO_CONTENT)
 
         except Exception as ex:
