@@ -15,7 +15,7 @@ class AthleteEventView(ViewSet):
         """
         
         athlete = Athlete.objects.get(user=request.auth.user)
-        events = AthleteEvent.objects.filter(athlete=athlete).order_by('-date')
+        events = AthleteEvent.objects.filter(athlete=athlete).order_by('-event__date')
 
         serializer = AthleteEventSerializer(
             events, many=True, context={'request': request})
