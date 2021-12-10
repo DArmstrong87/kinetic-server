@@ -83,6 +83,32 @@ class EventView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as ex:
             return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def update(self, request, pk):
+        """Handles CREATE for a new event"""
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+        try:
+            event = Event.objects.get(pk=pk, organizer=organizer)
+            event.name=request.data['name']
+            event.description=request.data['description']
+            event.date=request.data['date']
+            event.city=request.data['city']
+            event.state=request.data['state']
+            event.max_participants=request.data['maxParticipants']
+            event.course_url=request.data['courseUrl']
+            event.event_logo=request.data['eventLogo']
+            event.save()
+
+            serializer = EventSerializer(
+                event, many=False, context={"request": request})
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        except Exception as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+        # else:
+        #     return Response("You are not authorized to edit this event.", status=status.HTTP_401_UNAUTHORIZED)
 
     def destroy(self, request, pk=None):
         try:

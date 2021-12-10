@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from kineticapi.models import Athlete
 from django.contrib.auth import get_user_model
-from kineticapi.serializers.event_serializer import EventSerializer
 
 class UserSerializer (serializers.ModelSerializer):
     class Meta:
