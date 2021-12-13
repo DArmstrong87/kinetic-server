@@ -9,3 +9,5 @@ class ActivitySport(models.Model):
     created_on = models.DateField()
     distance = models.FloatField()
     elev_gain = models.FloatField()
+
+    def __str__ (self): return f"{self.name} created on {self.created_on}"

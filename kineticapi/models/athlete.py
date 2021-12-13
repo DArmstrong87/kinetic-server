@@ -16,6 +16,8 @@ class Athlete(models.Model):
     weight = models.IntegerField()
     height = models.IntegerField()
     is_athlete = models.BooleanField(default=True)
+    
+    def __str__ (self): return f"{self.user.first_name} {self.user.last_name}"
 
     @property
     def age(self):

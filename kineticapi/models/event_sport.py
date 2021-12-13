@@ -8,3 +8,4 @@ class EventSport(models.Model):
     distance = models.FloatField()
     elev_gain = models.FloatField()
     
+    def __str__ (self): return f"{self.event} {self.sport}"

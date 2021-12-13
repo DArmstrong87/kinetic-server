@@ -15,6 +15,8 @@ class Event(models.Model):
     max_participants = models.IntegerField()
     course_url = models.URLField()
     event_logo = models.URLField()
+    
+    def __str__ (self): return f"{self.name} on {self.date}"
 
     @property
     def total_distance(self):
