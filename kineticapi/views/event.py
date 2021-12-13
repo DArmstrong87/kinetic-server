@@ -28,10 +28,10 @@ class EventView(ViewSet):
 
         if search_term is not None:
             events = Event.objects.filter(
-                Q(name__contains=search_term) |
-                Q(description__contains=search_term) |
-                Q(city__contains=search_term) |
-                Q(state__contains=search_term)
+                Q(name__icontains=search_term) |
+                Q(description__icontains=search_term) |
+                Q(city__icontains=search_term) |
+                Q(state__icontains=search_term)
             )
 
         if distance is not None:

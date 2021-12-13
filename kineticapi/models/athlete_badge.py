@@ -7,3 +7,4 @@ class AthleteBadge(models.Model):
     badge = models.ForeignKey("Badge", on_delete=models.CASCADE)
     achieved_on = models.DateField()
 
+    def __str__ (self): return f"{self.athlete} achieved {self.badge}"

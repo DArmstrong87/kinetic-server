@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import django_on_heroku
 
 """
 Django settings for kinetic project.
@@ -57,7 +58,9 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    'http://127.0.0.1:3000'
+    'http://127.0.0.1:3000',
+    'https://kinetic--server.herokuapp.com',
+    'https://kinetic-da.herokuapp.com/'
 )
 
 MIDDLEWARE = [
@@ -146,3 +149,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+django_on_heroku.settings(locals())
