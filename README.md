@@ -1,9 +1,8 @@
 ## Table of contents
 * [Kinetic](#kinetic)
-* [Technologies](#technologies)
 * [Features](#features)
-* [Tech Stack](#techstack)
-* [Run Locally](#RunLocally)
+* [Tech Stack](#tech-stack)
+* [Run Locally](#run-locally)
 # Kinetic
 
 This project is the server-side final capstone of Cohort 50 at Nashville Software School. The live app address is https://kinetic-da.herokuapp.com/
