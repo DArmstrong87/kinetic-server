@@ -3,6 +3,8 @@ from rest_framework import routers
 from django.conf.urls import include
 from django.urls import path
 from kineticapi.views import register_user, login_user, EventView
+from kineticapi.views.activity import ActivityView
+from kineticapi.views.activity_sport import ActivitySportView
 from kineticapi.views.athlete_event import AthleteEventView
 from kineticapi.views.event import OrganizerEventView
 from kineticapi.views.event_sport import EventSportView
@@ -19,6 +21,8 @@ router.register(r'sports', SportView, 'sport')
 router.register(r'athleteevents', AthleteEventView, 'athleteevent')
 router.register(r'athletes', AthleteView, 'athlete')
 router.register(r'eventsports', EventSportView, 'eventsport')
+router.register(r'activities', ActivityView, 'activity')
+router.register(r'activitysports', ActivitySportView, 'activitysport')
 
 urlpatterns = [
     path('', include(router.urls)),
