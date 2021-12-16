@@ -35,9 +35,9 @@ class ActivityView(ViewSet):
         Response -- JSON serialized event
         """
         try:
-            event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(
-                event, context={'request': request})
+            activity = Activity.objects.get(pk=pk)
+            serializer = ActivitySerializer(
+                activity, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as ex:
             return HttpResponseServerError(ex)
