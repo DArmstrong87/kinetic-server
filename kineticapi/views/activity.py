@@ -23,7 +23,7 @@ class ActivityView(ViewSet):
 
         athlete = Athlete.objects.get(user=request.auth.user)
         activities = Activity.objects.filter(
-            athlete=athlete).order_by('created_on')
+            athlete=athlete).order_by('-created_on')
 
         serializer = ActivitySerializer(
             activities, many=True, context={'request': request})
@@ -35,9 +35,9 @@ class ActivityView(ViewSet):
         Response -- JSON serialized event
         """
         try:
-            event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(
-                event, context={'request': request})
+            activity = Activity.objects.get(pk=pk)
+            serializer = ActivitySerializer(
+                activity, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as ex:
             return HttpResponseServerError(ex)
