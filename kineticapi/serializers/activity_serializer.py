@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from kineticapi.models import Activity
 from kineticapi.models.activity_sport import ActivitySport
-from kineticapi.serializers.organizer_serializer import OrganizerSerializer
 from kineticapi.serializers.sport_serializer import SportSerializer
 
 
@@ -21,7 +20,9 @@ class ActivitySerializer (serializers.ModelSerializer):
         fields = ('id',
                   'name',
                   'created_on',
-                  'activity_sports'
+                  'activity_sports',
+                  'total_distance',
+                  'total_elev_gain'
                   )
         depth = 1
 
