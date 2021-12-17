@@ -24,6 +24,8 @@ class AthleteSerializer (serializers.ModelSerializer):
                   'weight',
                   'height',
                   'user',
-                  'age'
+                  'age',
+                  'distanceYTD',
+                  'elevGainYTD'
                   )
         depth = 1
