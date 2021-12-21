@@ -141,7 +141,8 @@ class EventView(ViewSet):
             except:
                 athlete_event = AthleteEvent.objects.create(
                     athlete=athlete,
-                    event=event
+                    event=event,
+                    completed=False
                 )
                 return Response({f"You have signed up for {event.name}!"}, status=status.HTTP_201_CREATED)
         elif request.method == "DELETE":
