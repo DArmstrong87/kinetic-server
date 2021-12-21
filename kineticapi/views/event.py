@@ -27,6 +27,11 @@ class EventView(ViewSet):
         state = self.request.query_params.get('state', None)
         month = self.request.query_params.get('month', None)
         past = self.request.query_params.get('past', None)
+        
+        if past is not None:
+            events = Event.objects.filter(date__lt=datetime.now())
+        else:
+            events = Event.objects.filter(date__gte=datetime.now())
 
         if search_term is not None:
             events = Event.objects.filter(
@@ -45,12 +50,6 @@ class EventView(ViewSet):
 
         if month is not None:
             events = Event.objects.filter(date__month=month)
-        
-        if past is not None:
-            events = Event.objects.filter(date__lt=datetime.now())
-        else:
-            events = Event.objects.filter(date__gte=datetime.now())
-
 
         serializer = EventSerializer(
             events, many=True, context={'request': request})
