@@ -29,7 +29,7 @@ class AthleteEventView(ViewSet):
 
         if eventId is not None:
             event = Event.objects.get(pk=eventId)
-            events = AthleteEvent.objects.filter(
+            events = AthleteEvent.objects.get(
                 event=event, athlete=athlete)
 
         serializer = AthleteEventSerializer(
