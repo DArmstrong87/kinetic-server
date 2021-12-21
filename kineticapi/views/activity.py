@@ -23,7 +23,7 @@ class ActivityView(ViewSet):
 
         athlete = Athlete.objects.get(user=request.auth.user)
         activities = Activity.objects.filter(
-            athlete=athlete).order_by('-created_on')
+            athlete=athlete).order_by('created_on')
 
         serializer = ActivitySerializer(
             activities, many=True, context={'request': request})
