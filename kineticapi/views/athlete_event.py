@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from kineticapi.models import AthleteEvent, Athlete, Event
 from kineticapi.serializers.athlete_event_serializer import AthleteEventSerializer
 from rest_framework import status
+from datetime import datetime
 
 
 class AthleteEventView(ViewSet):
