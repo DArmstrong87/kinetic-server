@@ -29,11 +29,14 @@ class AthleteEventView(ViewSet):
 
         if eventId is not None:
             event = Event.objects.get(pk=eventId)
-            events = AthleteEvent.objects.get(
+            ath_event = AthleteEvent.objects.get(
                 event=event, athlete=athlete)
-
-        serializer = AthleteEventSerializer(
+            serializer = AthleteEventSerializer(
+                ath_event, many=False, context={'request': request})
+        else:
+            serializer = AthleteEventSerializer(
             events, many=True, context={'request': request})
+            
         return Response(serializer.data)
 
     def retrieve(self, request, pk):
