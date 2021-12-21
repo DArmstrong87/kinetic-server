@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from kineticapi.models import AthleteEvent, Athlete, Event
 from kineticapi.serializers.athlete_event_serializer import AthleteEventSerializer
+from rest_framework import status
 
 
 class AthleteEventView(ViewSet):
@@ -30,3 +31,12 @@ class AthleteEventView(ViewSet):
         serializer = AthleteEventSerializer(
             athlete_event, context={'request': request})
         return Response(serializer.data)
+    
+    def partial_update(self, request, pk):
+        """Update Athlete Event"""
+        athlete = Athlete.objects.get(user=request.auth.user)
+        athlete_event = AthleteEvent.objects.get(athlete=athlete, pk=pk)
+        athlete_event.completed = request.data['completed']
+        athlete_event.save()
+        
+        return Response("athlete event updated", status=status.HTTP_204_NO_CONTENT)

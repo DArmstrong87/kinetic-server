@@ -32,6 +32,7 @@ class EventSerializer (serializers.ModelSerializer):
                   'total_elev_gain',
                   'spots_remaining',
                   'days_until',
-                  'organizer'
+                  'organizer',
+                  'completed'
                   )
         depth = 1

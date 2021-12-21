@@ -1,4 +1,5 @@
 from django.db import models
+from kineticapi.models.athlete import Athlete
 from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 from datetime import datetime
@@ -59,3 +60,15 @@ class Event(models.Model):
         racetime = self.date.timestamp()
         daysUntil = round((racetime - today)/(3600*24))
         return daysUntil
+
+    @property
+    def completed(self):
+        """For the athlete, add completed property"""
+        
+        complete = False
+        try:
+            AthleteEvent.objects.get(event=self, completed=True)
+            complete = True
+            return complete
+        except:
+            return complete
