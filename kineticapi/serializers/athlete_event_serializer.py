@@ -8,5 +8,5 @@ class AthleteEventSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('event',)
+        fields = ('id', 'event', 'completed')
         depth = 1

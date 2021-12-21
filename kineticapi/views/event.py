@@ -3,7 +3,7 @@ from django.db.models.aggregates import Sum
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from kineticapi.models import Event, Athlete, AthleteEvent, Organizer, EventSport
+from kineticapi.models import Event, Athlete, AthleteEvent, Organizer
 from kineticapi.serializers import EventSerializer
 from rest_framework.decorators import action
 from rest_framework import status
