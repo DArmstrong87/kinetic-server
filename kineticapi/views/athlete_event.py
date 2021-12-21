@@ -28,8 +28,9 @@ class AthleteEventView(ViewSet):
                 athlete=athlete, event__date__gte=datetime.now()).order_by('event__date')
 
         if eventId is not None:
-            events = AthleteEvent.objects.get(
-                event__id=eventId, athlete=athlete)
+            event = Event.objects.get(pk=eventId)
+            events = AthleteEvent.objects.filter(
+                event=event, athlete=athlete)
 
         serializer = AthleteEventSerializer(
             events, many=True, context={'request': request})
