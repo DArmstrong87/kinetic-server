@@ -18,7 +18,11 @@ class AthleteEventView(ViewSet):
 
         athlete = Athlete.objects.get(user=request.auth.user)
         past = self.request.query_params.get('past', None)
-
+        eventId = self.request.query_params.get('eventId', None)
+        
+        if eventId is not None:
+            events = AthleteEvent.objects.get(event__id=eventId)
+            
         if past is not None:
             events = AthleteEvent.objects.filter(
                 athlete=athlete, event__date__lt=datetime.now()).order_by('event__date')
