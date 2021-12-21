@@ -21,7 +21,7 @@ class AthleteEventView(ViewSet):
         eventId = self.request.query_params.get('eventId', None)
         
         if eventId is not None:
-            events = AthleteEvent.objects.get(event__id=eventId)
+            events = AthleteEvent.objects.get(event__id=eventId, athlete=athlete)
             
         if past is not None:
             events = AthleteEvent.objects.filter(
