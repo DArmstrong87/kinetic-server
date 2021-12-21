@@ -19,16 +19,17 @@ class AthleteEventView(ViewSet):
         athlete = Athlete.objects.get(user=request.auth.user)
         past = self.request.query_params.get('past', None)
         eventId = self.request.query_params.get('eventId', None)
-        
-        if eventId is not None:
-            events = AthleteEvent.objects.get(event__id=eventId, athlete=athlete)
-            
+
         if past is not None:
             events = AthleteEvent.objects.filter(
                 athlete=athlete, event__date__lt=datetime.now()).order_by('event__date')
         else:
             events = AthleteEvent.objects.filter(
                 athlete=athlete, event__date__gte=datetime.now()).order_by('event__date')
+
+        if eventId is not None:
+            events = AthleteEvent.objects.get(
+                event__id=eventId, athlete=athlete)
 
         serializer = AthleteEventSerializer(
             events, many=True, context={'request': request})
@@ -43,12 +44,12 @@ class AthleteEventView(ViewSet):
         serializer = AthleteEventSerializer(
             athlete_event, context={'request': request})
         return Response(serializer.data)
-    
+
     def partial_update(self, request, pk):
         """Update Athlete Event"""
         athlete = Athlete.objects.get(user=request.auth.user)
         athlete_event = AthleteEvent.objects.get(athlete=athlete, pk=pk)
         athlete_event.completed = request.data['completed']
         athlete_event.save()
-        
+
         return Response("athlete event updated", status=status.HTTP_204_NO_CONTENT)
