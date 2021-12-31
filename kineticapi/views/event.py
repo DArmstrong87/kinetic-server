@@ -16,9 +16,8 @@ class EventView(ViewSet):
     """Kinetic Events"""
 
     def list(self, request):
-        """Handle GET requests to get all events, ordered by nearest date.
-        Returns:
-        Response -- JSON serialized list of events
+        """Handle GET requests to get all events, ordered by date.
+        Returns: JSON serialized list of events
         """
 
         events = Event.objects.all().order_by('date')
@@ -29,14 +28,14 @@ class EventView(ViewSet):
         month = self.request.query_params.get('month', None)
         past = self.request.query_params.get('past', None)
         sport = self.request.query_params.get('sport', None)
-        
+            
         if past is not None:
             events = events.filter(date__lt=datetime.now())
         else:
             events = events.filter(date__gte=datetime.now())
 
         if search_term is not None:
-            events = events.objects.filter(
+            events = events.filter(
                 Q(name__icontains=search_term) |
                 Q(description__icontains=search_term) |
                 Q(city__icontains=search_term) |
