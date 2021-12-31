@@ -1,5 +1,6 @@
 """View module for handling requests about game types"""
 from django.db.models.aggregates import Sum
+from django.db.models import Count
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -27,14 +28,15 @@ class EventView(ViewSet):
         state = self.request.query_params.get('state', None)
         month = self.request.query_params.get('month', None)
         past = self.request.query_params.get('past', None)
+        sport = self.request.query_params.get('sport', None)
         
         if past is not None:
-            events = Event.objects.filter(date__lt=datetime.now())
+            events = events.filter(date__lt=datetime.now())
         else:
-            events = Event.objects.filter(date__gte=datetime.now())
+            events = events.filter(date__gte=datetime.now())
 
         if search_term is not None:
-            events = Event.objects.filter(
+            events = events.objects.filter(
                 Q(name__icontains=search_term) |
                 Q(description__icontains=search_term) |
                 Q(city__icontains=search_term) |
@@ -42,14 +44,22 @@ class EventView(ViewSet):
             )
 
         if distance is not None:
-            events = Event.objects.annotate(
-                tdist=Sum("event_sports__distance")).filter(tdist__gte=distance)
+            events = events.annotate(
+                tdist=Sum("event_sports__distance")).filter(
+                    tdist__gte=distance
+            )
 
         if state is not None:
-            events = Event.objects.filter(state=state)
+            events = events.filter(
+                state=state)
 
         if month is not None:
-            events = Event.objects.filter(date__month=month)
+            events = events.filter(
+                date__month=month)
+
+        if sport is not None:
+            events = events.filter(
+                event_sports__sport__name=sport)
 
         serializer = EventSerializer(
             events, many=True, context={'request': request})
@@ -166,11 +176,13 @@ class OrganizerEventView(ViewSet):
 
         organizer = Organizer.objects.get(user=request.auth.user)
         past = self.request.query_params.get('past', None)
-        
+
         if past is not None:
-            events = Event.objects.filter(organizer=organizer, date__lt=datetime.now()).order_by('date')
+            events = Event.objects.filter(
+                organizer=organizer, date__lt=datetime.now()).order_by('date')
         else:
-            events = Event.objects.filter(organizer=organizer, date__gte=datetime.now()).order_by('date')
+            events = Event.objects.filter(
+                organizer=organizer, date__gte=datetime.now()).order_by('date')
 
         serializer = EventSerializer(
             events, many=True, context={'request': request})
