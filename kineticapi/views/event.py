@@ -23,12 +23,14 @@ class EventView(ViewSet):
         events = Event.objects.all().order_by('date')
 
         search_term = self.request.query_params.get('q', None)
-        distance = self.request.query_params.get('dist', None)
+        mindist = self.request.query_params.get('mindist', None)
+        maxdist = self.request.query_params.get('maxdist', None)
         state = self.request.query_params.get('state', None)
         month = self.request.query_params.get('month', None)
         past = self.request.query_params.get('past', None)
         sport = self.request.query_params.get('sport', None)
-            
+        multi = self.request.query_params.get('multi', None)
+
         if past is not None:
             events = events.filter(date__lt=datetime.now())
         else:
@@ -42,10 +44,22 @@ class EventView(ViewSet):
                 Q(state__icontains=search_term)
             )
 
-        if distance is not None:
+        if mindist is not None:
             events = events.annotate(
                 tdist=Sum("event_sports__distance")).filter(
-                    tdist__gte=distance
+                    tdist__gte=mindist
+            )
+
+        if maxdist is not None:
+            events = events.annotate(
+                tdist=Sum("event_sports__distance")).filter(
+                    tdist__lte=maxdist
+            )
+
+        if multi is not None:
+            events = events.annotate(
+                count=Count("event_sports")).filter(
+                    count__gt=2
             )
 
         if state is not None:
