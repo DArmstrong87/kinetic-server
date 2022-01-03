@@ -21,7 +21,7 @@ def login_user(request):
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
 
-        organizer=None
+        organizer = None
         try:
             organizer = Organizer.objects.get(user=authenticated_user)
         except:

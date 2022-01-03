@@ -1,10 +1,8 @@
 """View module for handling requests about game types"""
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from kineticapi.models import Event, Sport, EventSport, event_sport
-from kineticapi.serializers import EventSerializer
+from kineticapi.models import Event, Sport, EventSport
 from rest_framework import status
-
 from kineticapi.serializers.event_serializer import EventSportSerializer
 
 

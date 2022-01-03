@@ -1,11 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
-
 from django.db.models.aggregates import Sum
 from kineticapi.models.activity import Activity
-
-from kineticapi.models.activity_sport import ActivitySport
 
 
 class Athlete(models.Model):

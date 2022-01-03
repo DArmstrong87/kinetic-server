@@ -3,7 +3,6 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from kineticapi.models import Event, Athlete, Activity
-from kineticapi.serializers import EventSerializer
 from rest_framework import status
 
 from kineticapi.serializers.activity_serializer import ActivitySerializer

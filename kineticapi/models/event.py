@@ -1,5 +1,4 @@
 from django.db import models
-from kineticapi.models.athlete import Athlete
 from kineticapi.models.athlete_event import AthleteEvent
 from kineticapi.models.event_sport import EventSport
 from datetime import datetime

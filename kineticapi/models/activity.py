@@ -2,7 +2,6 @@ from django.db import models
 from kineticapi.models.activity_sport import ActivitySport
 
 
-
 class Activity(models.Model):
 
     athlete = models.ForeignKey("Athlete", on_delete=models.CASCADE)
