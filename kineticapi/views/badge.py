@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from kineticapi.models import Badge, AthleteBadge, Athlete
 from rest_framework import status
-from django.db.models.aggregates import Sum
+from django.db.models import Q
 from kineticapi.serializers.badge_serializer import BadgeSerializer
 
 
@@ -11,11 +11,16 @@ class BadgeView(ViewSet):
     """Kinetic Badges"""
 
     def list(self, request):
-        """Handle GET requests to get all badges
+        """Handle GET requests to get badges that have not yet been achieved
         Returns:
         Response -- JSON serialized list of badges
         """
-        badges = Badge.objects.all()
+        athlete = Athlete.objects.get(user=request.auth.user)
+
+        achievements = [AthleteBadge.objects.filter(
+            athlete=athlete).values('badge')]
+
+        badges = Badge.objects.filter(~Q(pk__in=achievements))
 
         serializer = BadgeSerializer(
             badges, many=True, context={'request': request})

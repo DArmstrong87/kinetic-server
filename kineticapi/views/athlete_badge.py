@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from kineticapi.models import AthleteBadge, Athlete, Badge
 from rest_framework import status
 from kineticapi.serializers import AthleteBadgeSerializer
-from datetime import datetime
 from datetime import date
+
 
 
 class AthleteBadgeView(ViewSet):
