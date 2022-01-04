@@ -6,7 +6,7 @@ from kineticapi.serializers import SportSerializer
 
 
 class SportView(ViewSet):
-    """Level up game types"""
+    """Kinetic Sports"""
 
     def list(self, request):
         """Handle GET requests to get all sports

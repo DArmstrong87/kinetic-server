@@ -5,7 +5,9 @@ from django.urls import path
 from kineticapi.views import register_user, login_user, EventView
 from kineticapi.views.activity import ActivityView
 from kineticapi.views.activity_sport import ActivitySportView
+from kineticapi.views.athlete_badge import AthleteBadgeView
 from kineticapi.views.athlete_event import AthleteEventView
+from kineticapi.views.badge import BadgeView
 from kineticapi.views.event import OrganizerEventView
 from kineticapi.views.event_sport import EventSportView
 from kineticapi.views.profile import AthleteView
@@ -23,6 +25,8 @@ router.register(r'athletes', AthleteView, 'athlete')
 router.register(r'eventsports', EventSportView, 'eventsport')
 router.register(r'activities', ActivityView, 'activity')
 router.register(r'activitysports', ActivitySportView, 'activitysport')
+router.register(r'badges', BadgeView, 'badge')
+router.register(r'achievements', AthleteBadgeView, 'achievement')
 
 urlpatterns = [
     path('', include(router.urls)),
